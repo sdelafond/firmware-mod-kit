@@ -101,7 +101,7 @@ inline int snprintf(char *str, size_t n, const char *fmt, ...)
 
 static FILE *devtable = NULL;
 
-int duplicate_checking = 1, noF = 0, no_fragments = 0, always_use_fragments = 0;
+int duplicate_checking = 0, noF = 0, no_fragments = 0, always_use_fragments = 0;
 int total_compressed = 0, total_uncompressed = 0;
 
 int fd;
@@ -1820,6 +1820,9 @@ int main(int argc, char *argv[])
 		} else if(strcmp(argv[i], "-no-duplicates") == 0)
 			duplicate_checking = FALSE;
 
+		else if(strcmp(argv[i], "-duplicates") == 0)
+			duplicate_checking = TRUE;
+
 		else if(strcmp(argv[i], "-no-fragments") == 0)
 			no_fragments = TRUE;
 
@@ -1944,7 +1947,8 @@ printOptions:
 			ERROR("\t-noI -noInodeCompression\tdo not compress inode table\n");
 			ERROR("\t-noD -noDataCompression\t\tdo not compress data blocks\n");
 			ERROR("\t-noF -noFragmentCompression\tdo not compress fragment blocks\n");
-			ERROR("\t-no-duplicates\t\t\tdo not perform duplicate checking\n");
+			ERROR("\t-no-duplicates\t\t\tdo not perform duplicate checking (enabled by default)\n");
+			ERROR("\t-duplicates\t\t\tdo perform duplicate checking\n");
 			ERROR("\t-no-fragments\t\t\tdo not use fragments\n");
 			ERROR("\t-always-use-fragments\t\tuse fragment blocks for files larger than block size\n");
 			ERROR("\t-nopad\t\t\t\tdo not pad filesystem to a multiple of 4K\n");
